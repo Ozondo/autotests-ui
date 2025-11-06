@@ -28,7 +28,7 @@ class CoursesListPage(BasePage):
 
     def check_visible_courses_title(self):
         expect(self.courses_title).to_be_visible()
-        expect(self.create_course_button).to_have_text('Courses')
+        expect(self.courses_title).to_have_text('Courses')
 
     def check_visible_empty_view(self):
         expect(self.empty_view_icon).to_be_visible()
@@ -51,23 +51,20 @@ class CoursesListPage(BasePage):
             self,
             index: int,
             title: str,
-            max_score: int,
-            min_score: int,
+            max_score: str,
+            min_score: str,
             estimated_time: str
     ):
         expect(self.course_image.nth(index)).to_be_visible()
 
-        expect(self.courses_title.nth(index)).to_be_visible()
-        expect(self.courses_title.nth(index)).to_have_text(title)
+        expect(self.course_title.nth(index)).to_be_visible()
+        expect(self.course_title.nth(index)).to_have_text(title)
 
         expect(self.course_max_score.nth(index)).to_be_visible()
         expect(self.course_max_score.nth(index)).to_have_text(f'Max score: {max_score}')
 
-        expect(self.course_max_score.nth(index)).to_be_visible()
-        expect(self.course_max_score.nth(index)).to_have_text(f'Min score: {min_score}')
-
-        expect(self.course_max_score.nth(index)).to_be_visible()
-        expect(self.course_max_score.nth(index)).to_have_text(f'Min score: {min_score}')
+        expect(self.course_min_score.nth(index)).to_be_visible()
+        expect(self.course_min_score.nth(index)).to_have_text(f'Min score: {min_score}')
 
         expect(self.estimated_time.nth(index)).to_be_visible()
         expect(self.estimated_time.nth(index)).to_have_text(f'Estimated time: {estimated_time}')
