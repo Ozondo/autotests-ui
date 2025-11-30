@@ -8,7 +8,6 @@ from pages.registration_page import RegistrationPage
 def test_successful_registration(registration_page: RegistrationPage, dashboard_page: DashBoardPage):
     registration_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
 
-
     registration_page.fill_registration_form(
         email='example@mail.com',username='example_username',password='example_password'
     )

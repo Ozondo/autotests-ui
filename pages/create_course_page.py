@@ -2,6 +2,9 @@ from components.navigation.navbar_component import NavBarComponent
 from components.views.empty_view_component import EmptyViewComponent
 from components.views.image_upload_widget_component import ImageUploadWidgetComponent
 from components.courses.create_course_exercise_form_component import CreateCourseExerciseFormComponent
+from components.courses.create_course_form_component import CreateCourseFormComponent
+from components.courses.create_course_toolbar_view_component import CreateCourseToolbarViewComponent
+from components.courses.create_course_exercises_toolbar_view_component import CreateCourseExercisesToolbarViewComponent
 from pages.base_page import BasePage
 from playwright.sync_api import Page, expect
 
@@ -11,40 +14,19 @@ class CreateCoursePage(BasePage):
         super().__init__(page)
 
         self.navbar = NavBarComponent(page)
-        self.exercises_empty_view = EmptyViewComponent(page, identifier='create-course-exercises')
         self.image_upload_widget = ImageUploadWidgetComponent(page, identifier='create-course-preview')
-        self.create_course_form = CreateCourseExerciseFormComponent(page)
+        self.create_course_form = CreateCourseFormComponent(page)
+        self.create_course_toolbar = CreateCourseToolbarViewComponent(page)
+        self.create_course_exercises_toolbar = CreateCourseExercisesToolbarViewComponent(page)
+        self.empty_view = EmptyViewComponent(page, identifier='create-course-exercises')
+        self.create_exercises_course_form = CreateCourseExerciseFormComponent(page)
+        self.exercises_empty_view = EmptyViewComponent(page, identifier='create-course-exercises')
 
-        self.create_course_title = page.get_by_test_id('create-course-toolbar-title-text')
-        self.create_course_button = page.get_by_test_id('create-course-toolbar-create-course-button')
-
-        self.create_course_title_input = page.get_by_test_id('create-course-form-title-input').locator('input')
-        self.create_course_estimate_input = (
-            page.get_by_test_id('create-course-form-estimated-time-input').locator('input')
-        )
-
-        self.create_course_description_input = (
-            page.get_by_test_id('create-course-form-description-input').locator('textarea').first
-        )
-        self.create_course_max_score_input = page.get_by_test_id('create-course-form-max-score-input').locator('input')
-        self.create_course_min_score_input = page.get_by_test_id('create-course-form-min-score-input').locator('input')
-
-        self.exercises_title = page.get_by_test_id('create-course-exercises-box-toolbar-title-text')
-        self.create_exercises_button = page.get_by_test_id('create-course-exercises-box-toolbar-create-exercise-button')
-
-    def check_visible_create_course_title(self):
-        expect(self.create_course_title).to_be_visible()
-        expect(self.create_course_title).to_have_text('Create course')
-
+    def check_visible_create_course_title(self, is_create_course_disabled: bool = True):
+        self.create_course_toolbar.check_visible(is_create_course_disabled)
 
     def click_create_course_button(self):
-        self.create_course_button.click()
-
-    def check_visible_create_course_button(self):
-        expect(self.create_course_button).to_be_visible()
-
-    def check_disabled_create_course_button(self):
-        expect(self.create_course_button).to_be_disabled()
+        self.create_course_toolbar.click_create_course_button()
 
     def check_visible_create_course_form(
             self,
@@ -54,30 +36,19 @@ class CreateCoursePage(BasePage):
             max_score: str,
             min_score: str,
     ):
-        expect(self.create_course_title_input).to_be_visible()
-        expect(self.create_course_title_input).to_have_value(title)
+        self.create_course_form.check_visible(
+            title=title,
+            estimated_time=estimated_time,
+            description=description,
+            max_score=max_score,
+            min_score=min_score
+        )
 
-        expect(self.create_course_estimate_input).to_be_visible()
-        expect(self.create_course_estimate_input).to_have_value(estimated_time)
-
-        expect(self.create_course_description_input).to_be_visible()
-        expect(self.create_course_description_input).to_have_value(description)
-
-        expect(self.create_course_max_score_input).to_be_visible()
-        expect(self.create_course_max_score_input).to_have_value(max_score)
-
-        expect(self.create_course_min_score_input).to_be_visible()
-        expect(self.create_course_min_score_input).to_have_value(min_score)
-
-    def check_visible_exercises_title(self):
-        expect(self.exercises_title).to_be_visible()
-        expect(self.exercises_title).to_have_text('Exercises')
-
-    def check_visible_create_exercise_button(self):
-        expect(self.create_exercises_button).to_be_visible()
+    def check_visible_exercises(self):
+        self.create_course_exercises_toolbar.check_visible()
 
     def click_create_exercises_button(self):
-        self.create_exercises_button.click()
+        self.create_course_exercises_toolbar.click_create_exercise_button()
 
     def check_visible_exercises_empty_view(self):
         self.exercises_empty_view.check_visible(
@@ -93,17 +64,10 @@ class CreateCoursePage(BasePage):
             max_score: str,
             min_score: str,
     ):
-        self.create_course_title_input.fill(title)
-        expect(self.create_course_title_input).to_have_value(title)
-
-        self.create_course_estimate_input.fill(estimated_time)
-        expect(self.create_course_estimate_input).to_have_value(estimated_time)
-
-        self.create_course_description_input.fill(description)
-        expect(self.create_course_description_input).to_have_value(description)
-
-        self.create_course_max_score_input.fill(max_score)
-        expect(self.create_course_max_score_input).to_have_value(max_score)
-
-        self.create_course_min_score_input.fill(min_score)
-        expect(self.create_course_min_score_input).to_have_value(min_score)
+        self.create_course_form.fill(
+            title=title,
+            estimated_time = estimated_time,
+            description = description,
+            max_score = max_score,
+            min_score = min_score,
+        )
