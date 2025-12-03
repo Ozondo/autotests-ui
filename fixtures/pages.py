@@ -12,8 +12,12 @@ def login_page(chromium_page: Page) -> LoginPage:
     return LoginPage(page=chromium_page)
 
 @pytest.fixture
-def registration_page(chromium_page_with_state: Page) -> RegistrationPage:
+def registration_page_with_state(chromium_page_with_state: Page) -> RegistrationPage:
     return RegistrationPage(page=chromium_page_with_state)
+
+@pytest.fixture
+def registration_page(chromium_page: Page) -> RegistrationPage:
+    return RegistrationPage(page=chromium_page)
 
 @pytest.fixture
 def dashboard_page(chromium_page: Page) -> DashBoardPage:

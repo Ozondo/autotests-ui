@@ -6,7 +6,7 @@ from components.courses.create_course_form_component import CreateCourseFormComp
 from components.courses.create_course_toolbar_view_component import CreateCourseToolbarViewComponent
 from components.courses.create_course_exercises_toolbar_view_component import CreateCourseExercisesToolbarViewComponent
 from pages.base_page import BasePage
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 
 class CreateCoursePage(BasePage):
@@ -50,10 +50,11 @@ class CreateCoursePage(BasePage):
     def click_create_exercises_button(self):
         self.create_course_exercises_toolbar.click_create_exercise_button()
 
-    def check_visible_exercises_empty_view(self):
+    def check_visible_exercises_empty_view(self, identifier: str):
         self.exercises_empty_view.check_visible(
             title='There is no exercises',
-            description='Click on "Create exercise" button to create new exercise'
+            description='Click on "Create exercise" button to create new exercise',
+            identifier=identifier
         )
 
     def fill_create_course_form(

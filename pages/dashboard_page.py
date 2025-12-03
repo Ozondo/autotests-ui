@@ -3,7 +3,7 @@ from components.navigation.sidebar_component import SideBarComponent
 from components.charts.chart_view_component import ChartViewComponent
 from components.dashboard.dashboard_toolbar_view_component import DashboardToolbarViewComponent
 from pages.base_page import BasePage
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 class DashBoardPage(BasePage):
     def __init__(self, page: Page):
@@ -24,10 +24,10 @@ class DashBoardPage(BasePage):
         self.students_chart_view.check_visible(title='Students')
 
     def check_visible_activities_chart(self):
-        self.students_chart_view.check_visible(title='Activities')
+        self.activities_chart_view.check_visible(title='Activities')
 
     def check_visible_courses_chart(self):
-        self.students_chart_view.check_visible(title='Courses')
+        self.courses_chart_view.check_visible(title='Courses')
 
     def check_visible_scores_chart(self):
-        self.students_chart_view.check_visible(title='Scores')
+        self.scores_chart_view.check_visible(title='Scores')

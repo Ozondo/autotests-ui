@@ -1,7 +1,7 @@
 import re
 
 from components.base_component import BaseComponent
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 from components.navigation.sidebar_list_item_component import SideBarListItemComponent
 
@@ -11,15 +11,15 @@ class SideBarComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.logout_list_item = SideBarListItemComponent(page, identifier='logout')
-        self.courses_list_item = SideBarListItemComponent(page, identifier='courses')
-        self.dashboard_list_item = SideBarListItemComponent(page, identifier='dashboard')
+        self.logout_list_item = SideBarListItemComponent(page)
+        self.courses_list_item = SideBarListItemComponent(page)
+        self.dashboard_list_item = SideBarListItemComponent(page)
 
 
     def check_visible(self):
-        self.logout_list_item.check_visible('Logout')
-        self.courses_list_item.check_visible('Courses')
-        self.dashboard_list_item.check_visible('Dashboard')
+        self.logout_list_item.check_visible('Logout', identifier='logout')
+        self.courses_list_item.check_visible('Courses', identifier='courses')
+        self.dashboard_list_item.check_visible('Dashboard', identifier='dashboard')
 
     def click_logout(self):
         self.logout_list_item.navigate_url(re.compile(r".*/#/auth/login"))

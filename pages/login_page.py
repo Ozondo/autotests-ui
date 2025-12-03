@@ -2,7 +2,7 @@ from elements.button import Button
 from elements.link import Link
 from elements.text import Text
 from pages.base_page import BasePage
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 from components.authentication.login_form_component import LoginFormComponent
 
 
