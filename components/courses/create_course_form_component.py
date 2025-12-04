@@ -1,17 +1,20 @@
 from components.base_component import BaseComponent
 from playwright.sync_api import Page, expect
 
+from elements.input import Input
+from elements.textarea import TextArea
+
 class CreateCourseFormComponent(BaseComponent):
 
     def __init__(self, page: Page):
         super().__init__(page)
-        self.title_input = page.get_by_test_id('create-course-form-title-input').locator('input')
-        self.estimate_input = (page.get_by_test_id('create-course-form-estimated-time-input').locator('input'))
-        self.description_input = (
-            page.get_by_test_id('create-course-form-description-input').locator('textarea').first
+        self.title_input = Input(page,'create-course-form-title-input', 'Title Input')
+        self.estimate_input = Input(page,'create-course-form-estimated-time-input', 'Estimated Input')
+        self.description_input = TextArea(
+            page,'create-course-form-description-input', 'Description Textarea'
         )
-        self.max_score_input = page.get_by_test_id('create-course-form-max-score-input').locator('input')
-        self.min_score_input = page.get_by_test_id('create-course-form-min-score-input').locator('input')
+        self.max_score_input = Input(page,'create-course-form-max-score-input', 'Max Score Input')
+        self.min_score_input = Input(page,'create-course-form-min-score-input', 'Min Score Input')
 
 
     def fill(
@@ -23,20 +26,19 @@ class CreateCourseFormComponent(BaseComponent):
             min_score: str,
     ):
         self.title_input.fill(title)
-        expect(self.title_input).to_have_value(title)
+        self.title_input.check_value(title)
 
         self.estimate_input.fill(estimated_time)
-        expect(self.estimate_input).to_have_value(estimated_time)
+        self.estimate_input.check_value(estimated_time)
 
         self.description_input.fill(description)
-        expect(self.description_input).to_have_value(description)
+        self.description_input.check_value(description)
 
         self.max_score_input.fill(max_score)
-        expect(self.max_score_input).to_have_value(max_score)
+        self.max_score_input.check_value(max_score)
 
         self.min_score_input.fill(min_score)
-        expect(self.min_score_input).to_have_value(min_score)
-
+        self.min_score_input.check_value(min_score)
 
     def check_visible(
             self,
@@ -46,17 +48,17 @@ class CreateCourseFormComponent(BaseComponent):
             max_score: str,
             min_score: str,
     ):
-        expect(self.title_input).to_be_visible()
-        expect(self.title_input).to_have_value(title)
+        self.title_input.check_visible()
+        self.title_input.check_value(title)
 
-        expect(self.estimate_input).to_be_visible()
-        expect(self.estimate_input).to_have_value(estimated_time)
+        self.estimate_input.check_visible()
+        self.estimate_input.check_value(estimated_time)
 
-        expect(self.description_input).to_be_visible()
-        expect(self.description_input).to_have_value(description)
+        self.description_input.check_visible()
+        self.description_input.check_value(description)
 
-        expect(self.max_score_input).to_be_visible()
-        expect(self.max_score_input).to_have_value(max_score)
+        self.max_score_input.check_visible()
+        self.max_score_input.check_value(max_score)
 
-        expect(self.min_score_input).to_be_visible()
-        expect(self.min_score_input).to_have_value(min_score)
+        self.min_score_input.check_visible()
+        self.min_score_input.check_value(min_score)
