@@ -11,7 +11,7 @@ def test_create_course(course_list_page: CoursesListPage, create_course_page: Cr
     create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
 
     create_course_page.check_visible_create_course_title(is_create_course_disabled=True)
-    create_course_page.image_upload_widget.check_visible(is_image_uploaded=False, identifier='create-course-preview')
+    create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
     create_course_page.check_visible_create_course_form(
         title='',
         estimated_time='',
@@ -20,10 +20,10 @@ def test_create_course(course_list_page: CoursesListPage, create_course_page: Cr
         min_score='0',
     )
     create_course_page.create_course_exercises_toolbar.check_visible()
-    create_course_page.check_visible_exercises_empty_view(identifier='create-course-exercises')
+    create_course_page.check_visible_exercises_empty_view()
 
-    create_course_page.image_upload_widget.upload_preview_image(file='../test_data/files/image.png', identifier='create-course-preview')
-    create_course_page.image_upload_widget.check_visible(is_image_uploaded=True, identifier='create-course-preview')
+    create_course_page.image_upload_widget.upload_preview_image(file='../test_data/files/image.png')
+    create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
 
 
     create_course_page.fill_create_course_form(

@@ -50,11 +50,10 @@ class CreateCoursePage(BasePage):
     def click_create_exercises_button(self):
         self.create_course_exercises_toolbar.click_create_exercise_button()
 
-    def check_visible_exercises_empty_view(self, identifier: str):
+    def check_visible_exercises_empty_view(self):
         self.exercises_empty_view.check_visible(
             title='There is no exercises',
             description='Click on "Create exercise" button to create new exercise',
-            identifier=identifier
         )
 
     def fill_create_course_form(
