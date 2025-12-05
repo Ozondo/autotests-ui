@@ -4,6 +4,7 @@ from elements.text import Text
 from pages.base_page import BasePage
 from playwright.sync_api import Page
 from components.authentication.login_form_component import LoginFormComponent
+import re
 
 
 class LoginPage(BasePage):
@@ -27,6 +28,7 @@ class LoginPage(BasePage):
 
     def click_registration_link(self):
         self.registration_link.click()
+        self.check_current_url(re.compile(r'.*/#/auth/registration'))
 
     def check_alert(self):
         self.wrong_email_or_password_alert.check_visible()

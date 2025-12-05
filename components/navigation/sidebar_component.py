@@ -11,15 +11,15 @@ class SideBarComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.logout_list_item = SideBarListItemComponent(page)
-        self.courses_list_item = SideBarListItemComponent(page)
-        self.dashboard_list_item = SideBarListItemComponent(page)
+        self.logout_list_item = SideBarListItemComponent(page, identifier="logout")
+        self.courses_list_item = SideBarListItemComponent(page, identifier="courses")
+        self.dashboard_list_item = SideBarListItemComponent(page, identifier="dashboard")
 
 
     def check_visible(self):
-        self.logout_list_item.check_visible('Logout', identifier='logout')
-        self.courses_list_item.check_visible('Courses', identifier='courses')
-        self.dashboard_list_item.check_visible('Dashboard', identifier='dashboard')
+        self.logout_list_item.check_visible('Logout')
+        self.courses_list_item.check_visible('Courses')
+        self.dashboard_list_item.check_visible('Dashboard')
 
     def click_logout(self):
         self.logout_list_item.navigate_url(re.compile(r".*/#/auth/login"))

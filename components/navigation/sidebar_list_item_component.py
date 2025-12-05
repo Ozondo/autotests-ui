@@ -7,20 +7,20 @@ from elements.button import Button
 from elements.text import Text
 
 class SideBarListItemComponent(BaseComponent):
-    def __init__(self, page: Page):
+    def __init__(self, page: Page, identifier: str):
         super().__init__(page)
 
-        self.icon = Icon(page,'{identifier}-drawer-list-item-icon', 'SideBar icon')
-        self.title = Text(page,'{identifier}-drawer-list-item-title-text', 'SideBar title')
-        self.button = Button(page,'{identifier}-drawer-list-item-button', 'SideBar button')
+        self.icon = Icon(page,f'{identifier}-drawer-list-item-icon', 'SideBar icon')
+        self.title = Text(page,f'{identifier}-drawer-list-item-title-text', 'SideBar title')
+        self.button = Button(page,f'{identifier}-drawer-list-item-button', 'SideBar button')
 
-    def check_visible(self, title: str, identifier: str):
-        self.icon.check_visible(identifier=identifier)
+    def check_visible(self, title: str):
+        self.icon.check_visible()
 
-        self.title.check_visible(identifier=identifier)
-        self.title.check_have_text(text=title, identifier=identifier)
+        self.title.check_visible()
+        self.title.check_have_text(text=title)
 
-        self.button.check_visible(identifier=identifier)
+        self.button.check_visible()
 
     def navigate_url(self, expected_url: Pattern[str]):
         self.button.click()

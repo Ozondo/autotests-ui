@@ -1,0 +1,49 @@
+import pytest
+
+from pages.authentification.login_page import LoginPage
+from pages.authentification.registration_page import RegistrationPage
+from pages.dashboard.dashboard_page import DashBoardPage
+
+
+@pytest.mark.authorization
+@pytest.mark.regression
+class TestAuthorization:
+    def test_successful_authorization(
+            self,
+            dashboard_page: DashBoardPage,
+            registration_page: RegistrationPage,
+            login_page: LoginPage,
+    ):
+        registration_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
+
+        registration_page.registration_form.fill(email='user@gmail.com',username='user',password='password')
+        registration_page.click_registration_button()
+
+        dashboard_page.dashboard_toolbar.check_visible()
+        dashboard_page.navbar.check_visible('user')
+        dashboard_page.sidebar.check_visible()
+
+        dashboard_page.sidebar.click_logout()
+
+        login_page.login_form.fill(email='user@gmail.com', password='password')
+        login_page.click_login_button()
+
+
+    @pytest.mark.parametrize('email, password', [('321', '321'), ('4324234', '324234234')])
+    def test_wrong_email_or_password_authorization(self,login_page: LoginPage, email: str, password: str):
+        login_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
+        login_page.check_visible()
+        login_page.fill(email=email, password=password)
+        login_page.click_login_button()
+        login_page.check_alert()
+
+    def test_navigate_from_authorization_to_registration(
+            self,
+            registration_page: RegistrationPage,
+            login_page: LoginPage
+    ):
+        login_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
+
+        login_page.click_registration_link()
+
+        registration_page.registration_form.check_visible(email='', username='', password='')
