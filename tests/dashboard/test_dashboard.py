@@ -2,10 +2,10 @@ import pytest
 import allure
 
 from pages.dashboard.dashboard_page import DashBoardPage
-from tools.tags import AllureTag
-from tools.epics import AllureEpic
-from tools.features import AllureFeature
-from tools.stories import AllureStory
+from tools.allure.tags import AllureTag
+from tools.allure.epics import AllureEpic
+from tools.allure.features import AllureFeature
+from tools.allure.stories import AllureStory
 from allure_commons.types import Severity
 
 

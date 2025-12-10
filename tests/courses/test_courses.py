@@ -3,10 +3,10 @@ import allure
 
 from pages.courses.courses_list_page import CoursesListPage
 from pages.courses.create_course_page import CreateCoursePage
-from tools.tags import AllureTag
-from tools.epics import AllureEpic
-from tools.features import AllureFeature
-from tools.stories import AllureStory
+from tools.allure.tags import AllureTag
+from tools.allure.epics import AllureEpic
+from tools.allure.features import AllureFeature
+from tools.allure.stories import AllureStory
 from allure_commons.types import Severity
 
 
