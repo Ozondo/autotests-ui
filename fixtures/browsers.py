@@ -3,7 +3,7 @@ from typing import Any, Generator
 
 from playwright.sync_api import Playwright, Page
 import pytest
-from config import settings
+from config import settings, Browser
 
 from pages.authentification.registration_page import RegistrationPage
 from _pytest.fixtures import SubRequest
@@ -32,17 +32,19 @@ def initialize_browser_state(playwright: Playwright) -> None:
 
     context.close()
 
-@pytest.fixture
-def chromium_page_with_state(request:SubRequest, initialize_browser_state, playwright: Playwright) -> Generator[Page, Any, None]:
+@pytest.fixture(params=settings.browsers)
+def page_with_state(request:SubRequest, initialize_browser_state, playwright: Playwright) -> Generator[Page, Any, None]:
     yield from initialize_playwright_page(
         playwright=playwright,
         test_name=f'{request.node.name}',
-        storage_state=settings.browser_state_file
+        storage_state=settings.browser_state_file,
+        browser_type=request.param
     )
 
-@pytest.fixture
-def chromium_page(request: SubRequest, playwright: Playwright) -> Generator[Page, Any, None]:
+@pytest.fixture(params=settings.browsers)
+def page(request: SubRequest, playwright: Playwright) -> Generator[Page, Any, None]:
     yield from initialize_playwright_page(
         playwright=playwright,
-        test_name=f'{request.node.name}'
+        test_name=f'{request.node.name}',
+        browser_type=request.param
     )
