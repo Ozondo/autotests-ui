@@ -26,6 +26,7 @@ class TestAuthorization:
     @allure.title("User login with correct email and password")
     @allure.tag(AllureTag.USER_LOGIN)
     @allure.severity(Severity.BLOCKER)
+    @pytest.mark.xdist_group(name="authorization-group")
     def test_successful_authorization(
             self,
             dashboard_page: DashBoardPage,

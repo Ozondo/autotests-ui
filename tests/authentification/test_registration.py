@@ -25,6 +25,7 @@ from config import settings
 class TestRegistration:
     @allure.severity(Severity.CRITICAL)
     @allure.title('Registration with correct email, username and password')
+    @pytest.mark.xdist_group(name="authorization-group")
     def test_successful_registration(self,registration_page: RegistrationPage, dashboard_page: DashBoardPage):
         registration_page.visit(AppRoute.REGISTRATION)
 
