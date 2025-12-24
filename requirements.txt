@@ -1,4 +1,7 @@
-pytest
+pytest~=8.4.2
 pytest-xdist
-playwright
+playwright~=1.55.0
 pytest-playwright
+allure-python-commons~=2.15.2
+pydantic-settings~=2.12.0
+pydantic~=2.12.5
