@@ -1,7 +1,9 @@
-pytest~=8.4.2
-pytest-xdist
-playwright~=1.55.0
-pytest-playwright
-allure-python-commons~=2.15.2
-pydantic-settings~=2.12.0
-pydantic~=2.12.5
+allure-pytest==2.15.2
+email-validator==2.3.0
+playwright==1.55.0
+pydantic==2.12.5
+pydantic-settings==2.12.0
+pytest==8.4.2
+pytest-playwright==0.7.1
+pytest-rerunfailures==16.1
+pytest-xdist==3.8.0
