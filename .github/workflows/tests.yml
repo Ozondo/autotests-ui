@@ -35,8 +35,6 @@ jobs:
           pytest -m regression --alluredir=./allure-results -n 2
 
 
-
-
       - name: Allure Report action from marketplace
         uses: simple-elf/allure-report-action@v1.13
         if: always()
@@ -52,3 +50,4 @@ jobs:
           publish_dir: allure-history
           force_orphan: true
           exclude_assets: .git
+          allow_empty_commit: true
