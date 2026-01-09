@@ -41,7 +41,7 @@ jobs:
 
 
       - name: Allure Report action from marketplace
-        uses: simple-elf/allure-report-action@v1
+        uses: simple-elf/allure-report-action@v1.5.0
         if: always()
         with:
           allure_results: allure-results
