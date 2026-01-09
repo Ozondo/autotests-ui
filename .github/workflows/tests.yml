@@ -1,5 +1,8 @@
 name: UI-tests
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -31,13 +34,7 @@ jobs:
         run: |
           pytest -m regression --alluredir=./allure-results -n 2
 
-      - name: Get Allure history
-        uses: actions/checkout@v3
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
+
 
 
       - name: Allure Report action from marketplace
@@ -54,4 +51,4 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
-
+          exclude_assets: .git
