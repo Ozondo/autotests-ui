@@ -5,11 +5,9 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   run-tests:
@@ -30,19 +28,11 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps
 
-      - name: Run playwright tests with pytest with generate Allure results
+      - name: Run playwright tests with pytest and generate Allure results
         run: |
           pytest -m regression --alluredir=./allure-results -n 2
 
-      - name: Get Allure history
-        uses: actions/checkout@v3
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Allure Report action from marketplace
+      - name: Generate Allure report
         uses: simple-elf/allure-report-action@v1.13
         if: always()
         with:
@@ -51,10 +41,9 @@ jobs:
 
       - name: Deploy report to Github Pages
         uses: peaceiris/actions-gh-pages@v4
+        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
-          exclude_assets: .git
-          allow_empty_commit: true
